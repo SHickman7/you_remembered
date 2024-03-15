@@ -20,6 +20,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
+import Occasions from '../Occasions/Occasions';
+
 import './App.css';
 
 function App() {
@@ -58,6 +60,8 @@ function App() {
             path="/user"
           >
             <UserPage />
+            <Occasions />
+  
           </ProtectedRoute>
 
           <ProtectedRoute
