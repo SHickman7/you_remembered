@@ -25,8 +25,8 @@ useEffect(() => {
   };
 
   const clearOccasionFields = () => {
-    setOccasion_name({occasion_name: ''})
-    setOccasion_notes({occasion_notes: ''});
+    setOccasion_name("");
+    setOccasion_notes("");
   }
 
   const deleteOccasion = (id) =>{
