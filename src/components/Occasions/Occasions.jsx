@@ -44,7 +44,7 @@ useEffect(() => {
     console.log('id', id);
     dispatch({
         type: 'DELETE_OCCASION',
-        payload: id,
+        payload: id
     });
   };
 
@@ -66,11 +66,12 @@ useEffect(() => {
                             <td>{occasion.occasion_name}</td>
                             <td>{occasion.occasion_notes}</td>
                             <td>
-                                <button onClick={()=> editOccasion(occasion.id)}>Edit</button>
+                                <button>Edit</button>
                                 <button onClick={() => deleteOccasion(occasion.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
+    
                 </tbody>
                 </table>
             </>
