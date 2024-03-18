@@ -12,54 +12,66 @@ const dispatch = useDispatch();
 const recipients = useSelector(store => store.recipient);
 
 useEffect(() => {
-    dispatch({ type: 'FETCH_OCCASIONS' });
+    dispatch({ type: 'FETCH_RECIPIENTS' });
   }, [dispatch]);
 
-  const addOccasion = (event) => {
+  const addRecipient = (event) => {
     event.preventDefault();
     dispatch({
-        type: 'ADD_OCCASION',
+        type: 'ADD_RECIPIENT',
         payload: {
-            occasion_name: occasion_name,
-            occasion_notes: occasion_notes
+            recipient_fullname: recipient_fullname,
+            phone_number: recipient_phone,
+            email: recipient_email,
+            address: recipient_address,
+            recipient_notes: recipient_notes
         },
     });
-    clearOccasionFields();
+    clearRecipientFields();
   };
 
-  const clearOccasionFields = () => {
-    setOccasion_name({occasion_name: ''})
-    setOccasion_notes({occasion_notes: ''});
-  }
+  const clearRecipientFields = () => {
+    setRecipient_fullname("")
+    setRecipient_phone("")
+    setRecipient_email("")
+    setRecipient_address("")
+    setRecipient_notes("")
+  };
 
-  const deleteOccasion = (id) =>{
+  const deleteRecipient = (id) =>{
     console.log('id', id);
     dispatch({
-        type: 'DELETE_OCCASION',
+        type: 'DELETE_RECIPIENT',
         payload: id,
     });
   };
 
-  const renderOccasions = () => {
-    if (occasions.length > 0){
+  const renderRecipients = () => {
+    if (recipients.length > 0){
         return(
             <>
                 <table>
                 <thead>
                     <tr>
-                        <th>Occasion</th>
+                        <th>Full Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
                         <th>Notes</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {occasions.map((occasion) => (
-                        <tr key = {occasion.id}>
-                            <td>{occasion.occasion_name}</td>
-                            <td>{occasion.occasion_notes}</td>
+                    {recipients.map((recipient) => (
+                        <tr key = {recipient.id}>
+                            <td>{recipient.recipient_fullname}</td>
+                            <td>{recipient.phone_number}</td>
+                            <td>{recipient.email}</td>
+                            <td>{recipient.address}</td>
+                            <td>{recipient.recipient_notes}</td>
                             <td>
                                 <button>Edit</button>
-                                <button onClick={() => deleteOccasion(occasion.id)}>Delete</button>
+                                <button onClick={() => deleteRecipient(recipient.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -67,27 +79,39 @@ useEffect(() => {
                 </table>
             </>
         )} else {
-            return <h3>You currently have no occasions</h3>
+            return <h3>You currently have no recipients</h3>
         }
   }
 
     return(
         <>
-         <form onSubmit={addOccasion}>
-            <input onChange={(event) => setOccasion_name(event.target.value)}
-                value={occasion_name}
-                placeholder="Occasion Name" />
+         <form onSubmit={addRecipient}>
+            <input onChange={(event) => setRecipient_fullname(event.target.value)}
+                value={recipient_fullname}
+                placeholder="Full Name" />
             
-            <input onChange={(event) => setOccasion_notes(event.target.value)}
-                value={occasion_notes}
-                placeholder="Occasion Notes" /> 
+            <input onChange={(event) => setRecipient_phone(event.target.value)}
+                value={recipient_phone}
+                placeholder="Phone Number" /> 
+
+            <input onChange={(event) => setRecipient_email(event.target.value)}
+                value={recipient_email}
+                placeholder="Email Address" /> 
             
-            <button type="submit">Add Occasion</button>
+            <input onChange={(event) => setRecipient_address(event.target.value)}
+                value={recipient_address}
+                placeholder="Address" /> 
+
+            <input onChange={(event) => setRecipient_notes(event.target.value)}
+                value={recipient_notes}
+                placeholder="Notes" /> 
+            
+            <button type="submit">Add Recipient</button>
 
         </form>
-        {renderOccasions()}
+        {renderRecipients()}
         </>
     )
 }
 
-export default Occasions;
+export default Recipients;

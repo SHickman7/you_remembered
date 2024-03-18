@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function Occasions(){
 
 const [occasion_name, setOccasion_name] = useState("");
 const [occasion_notes, setOccasion_notes] = useState("");
 const dispatch = useDispatch();
+const history = useHistory();
 const occasions = useSelector(store => store.occasion);
 
 useEffect(() => {
@@ -18,7 +20,7 @@ useEffect(() => {
         type: 'ADD_OCCASION',
         payload: {
             occasion_name: occasion_name,
-            occasion_notes: occasion_notes
+            occasion_notes: occasion_notes,
         },
     });
     clearOccasionFields();
@@ -27,6 +29,15 @@ useEffect(() => {
   const clearOccasionFields = () => {
     setOccasion_name("");
     setOccasion_notes("");
+  }
+
+  const editOccasion = (id) =>{
+    dispatch({
+        type: 'SET_EDIT_OCCASION',
+        payload: id
+
+    })
+    history.push('/edit');
   }
 
   const deleteOccasion = (id) =>{
@@ -55,7 +66,7 @@ useEffect(() => {
                             <td>{occasion.occasion_name}</td>
                             <td>{occasion.occasion_notes}</td>
                             <td>
-                                <button>Edit</button>
+                                <button onClick={()=> editOccasion(occasion.id)}>Edit</button>
                                 <button onClick={() => deleteOccasion(occasion.id)}>Delete</button>
                             </td>
                         </tr>

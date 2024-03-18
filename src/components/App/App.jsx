@@ -21,8 +21,10 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import Occasions from '../Occasions/Occasions';
+import Recipients from '../Recipients/Recipients';
 
 import './App.css';
+import EditOccasionForm from '../Occasions/EditOccasionForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +63,14 @@ function App() {
           >
             <UserPage />
             <Occasions />
+            <Recipients />
   
+          </ProtectedRoute>
+          <ProtectedRoute
+
+          exact path="/edit"
+          >
+            <EditOccasionForm />
           </ProtectedRoute>
 
           <ProtectedRoute

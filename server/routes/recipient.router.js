@@ -6,42 +6,41 @@ const {
   } = require('../modules/authentication-middleware');
 
 
-// GET Route to get existing occasions
+// GET Route to get existing recipients
 
 router.get('/', rejectUnauthenticated, (req, res) => {
   // GET route code here
-  pool.query(`SELECT "occasion_name", "occasion_notes","user_id" FROM "occasion";`).then((result) => {
+  pool.query(`SELECT "recipient_fullname", "phone_number","email", "address", "recipient_notes", "user_id" FROM "recipient";`).then((result) => {
     res.send(result.rows);
     console.log('result.rows', result.rows);
   }).catch((error) => {
-    console.log('Error GET /api/occasion', error);
+    console.log('Error GET /api/recipient', error);
     res.sendStatus(500);  
   });
 })
 
 
-//POST route to add an Occasion
+//POST route to add a recipient
 
 router.post('/', rejectUnauthenticated, (req, res) => {
   // POST route code here
   //console.log(req.body);
     console.log(req.body);
-    console.log('req.user_id', req.user_id)
-    const occasion = req.body;
+    const recipient = req.body;
 
-    const addOccasionQuery = `
-    INSERT INTO "occasion"
-    ("occasion_name", "occasion_notes", "user_id")
+    const addRecipientQuery = `
+    INSERT INTO "recipient"
+    ("recipient_fullname", "phone_number","email", "address", "recipient_notes", "user_id")
     VALUES
-    ($1, $2, $3);
+    ($1, $2, $3, $4, $5, $6);
 `;
-    pool.query(addOccasionQuery, [occasion.occasion_name, occasion.occasion_notes, req.user_id])
+    pool.query(addRecipientQuery, [recipient.recipient_fullname, recipient.phone_number, recipient.email, recipient.address, recipient.recipient_notes, req.user_id])
         .then((result) => {
-            console.log(`Added this occasion to the database:`, occasion);
+            console.log(`Added this recipient to the database:`, recipient);
             res.sendStatus(201);
         })
         .catch((error) => {
-            console.log(`Error making database query ${addOccasionQuery}:`, error);
+            console.log(`Error making database query ${addRecipientQuery}:`, error);
             res.sendStatus(500);
         })
 });
@@ -53,7 +52,7 @@ router.delete('/:id',rejectUnauthenticated, (req, res) => {
     console.log('we are here');
     console.log ('req.params.id', req.params.id);
     
-    const queryText = `DELETE FROM "occasion" WHERE "id" = $1;`;
+    const queryText = `DELETE FROM "recipient" WHERE "id" = $1;`;
 
     pool.query(queryText, [req.params.id])
         .then(

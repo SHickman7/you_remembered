@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import occasion from './occasion.reducer';
+import editOccasion from './editOccasion.reducer';
 import recipient from './recipient.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   occasion,
+  editOccasion,
   recipient
 });
 
