@@ -26,7 +26,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   // POST route code here
   //console.log(req.body);
     console.log(req.body);
-    console.log('req.user_id', req.user_id)
     const occasion = req.body;
 
     const addOccasionQuery = `
@@ -35,7 +34,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     VALUES
     ($1, $2, $3);
 `;
-    pool.query(addOccasionQuery, [occasion.occasion_name, occasion.occasion_notes, req.user_id])
+    pool.query(addOccasionQuery, [occasion.occasion_name, occasion.occasion_notes, req.user.id])
         .then((result) => {
             console.log(`Added this occasion to the database:`, occasion);
             res.sendStatus(201);
