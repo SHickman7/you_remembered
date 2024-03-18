@@ -10,7 +10,7 @@ const {
 
 router.get('/', rejectUnauthenticated, (req, res) => {
   // GET route code here
-  pool.query(`SELECT "occasion_name", "occasion_notes","user_id" FROM "occasion";`).then((result) => {
+  pool.query(`SELECT "occasion_name", "occasion_notes","user_id","id" FROM "occasion";`).then((result) => {
     res.send(result.rows);
     console.log('result.rows', result.rows);
   }).catch((error) => {
